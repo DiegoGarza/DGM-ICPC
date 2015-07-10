@@ -1,0 +1,63 @@
+################################################################################
+                                Special I/O
+################################################################################
+
+->
+
+
+################################################################################
+                                    Strings
+################################################################################
+
+->          CUSTOM COMPARATOR:
+
+struct icompare_char {
+bool operator()(char c1, char c2) {
+        if(toupper(c1) == toupper(c2)){
+            return c1 < c2;
+        }
+        else{
+            return toupper(c1) < toupper(c2);
+        }
+    }
+};
+
+struct compare {
+    bool operator()(string const& s1, string const& s2) {
+        if (s1.length() > s2.length())
+            return true;
+        if (s1.length() < s2.length())
+            return false;
+
+        return lexicographical_compare(s1.begin(), s1.end(),
+            s2.begin(), s2.end(), icompare_char());
+      }
+};
+
+################################################################################
+                                Premutations
+################################################################################
+
+//Make sure vector or string is ordered lexicographically
+//  in order to go through all permutations
+
+->          ITERATE THOUGH ALL PERMUTATIONS:
+
+vector<int> s;
+do{
+    //Do something
+
+}while(next_permutation(s.begin(), s.end()));
+
+################################################################################
+                                    Sets
+################################################################################
+
+->          ITERATE THROUGH SET:
+
+set<int>::iterator it;
+
+for (it = myset.begin(); it != myset.end(); ++it){
+    int aux = *it;
+    ans.push_back(aux);
+}
