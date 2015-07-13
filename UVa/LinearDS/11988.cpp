@@ -16,6 +16,8 @@
 #include <set>
 #include <numeric>
 #include <ctime>
+#include <iterator>
+#include <fstream>
 
 #define F(i, a) for( int i = (0); i < (a); i++ )
 #define Fs(i, sz) for( size_t i = 0; i < sz.size (); i++ )
@@ -26,6 +28,7 @@
 
 using namespace std;
 
+typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<string> vs;
@@ -34,30 +37,29 @@ typedef vector<vi> vvi;
 typedef map<int,int> mpii;
 typedef set<int> seti;
 
-int maxSubArray(vector<int>& nums) {
-    int max = MIN_INT;
-    for(int i=0; i<nums.size(); i++){
-
-    }
-}
-
 int main(){
     // FILE *in, *out;
     // in = fopen("input.txt", "r");
     // out = fopen("output.txt", "w+");
 
     //STARTS
-    vector<int> v;
-    v.push_back(-2);
-    v.push_back(1);
-    v.push_back(-3);
-    v.push_back(4);
-    v.push_back(-1);
-    v.push_back(2);
-    v.push_back(1);
-    v.push_back(-5);
-    v.push_back(4);
-    cout<<maxSubArray(v)<<endl;
+    string s;
+    while(getline(cin,s)){
+        list<char> ans;
+        list<char>::iterator it = ans.begin();
+        F(i, s.length()){
+            if(s[i] == '[') it = ans.begin();
+            else if(s[i] == ']') it = ans.end();
+            else {
+                ans.insert(it, s[i]);
+            }
+        }
+
+        for(it = ans.begin(); it!=ans.end(); ++it){
+            cout<<*it;
+        }
+        cout<<endl;
+    }
     //END
 
     // fclose(in);
