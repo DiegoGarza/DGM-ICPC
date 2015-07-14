@@ -77,42 +77,29 @@ int main(){
     // FILE *in, *out;
     // in = fopen("input.txt", "r");
     // out = fopen("output.txt", "w+");
-    ifstream infile;
-    infile.open("input.txt");
-    ofstream outfile;
-    outfile.open("output.txt");
+    // ifstream infile;
+    // infile.open("input.txt");
+    // ofstream outfile;
+    // outfile.open("output.txt");
+
     //STARTS
     int cases;
     string s;
-    infile>>cases;
-    infile.ignore();
-    infile.ignore();
+    cin>>cases;
+    cin.ignore();
+    cin.ignore();
     while(cases--){
         vector<Result> results;
-        while(getline(infile, s)){
+        while(getline(cin, s)){
             if(s == "") break;
             stringstream ss(s);
-            istream_iterator<string> it(ss);
-            istream_iterator<string> end;
-            vector<string> res(it, end);
-            vi v(res.size());
-            int aux;
-            F(i, res.size()){
-                if(res[i] == "I"){
-                    v[i] = -2;
-                }
-                else if(res[i] == "C"){
-                    v[i] = -1;
-                }
-                else if(res[i] == "E" || res[i] == "U" || res[i] == "R"){
-                    v[1] = v[2] = v[3] = 0;
-                }
-                else {
-                    istringstream stoi(res[i]);
-                    stoi >> v[i];
-                }
-            }
-            results.push_back(Result(v[0], v[1], v[2], v[3]));
+            int a,b,c, daux;
+            char d;
+            ss>>a>>b>>c>>d;
+            if (d == 'C') daux = -1;
+            else if (d == 'I') daux = -2;
+            else daux = 0;
+            results.push_back(Result(a,b,c,daux));
         }
 
         sort(results.begin(), results.end(), comp);
@@ -124,7 +111,6 @@ int main(){
         set<int> solved;
         while(i < results.size()){
             if(cprob != results[i].problem){
-                solved.clear();
                 cprob = results[i].problem;
                 penalty = 0;
             }
@@ -139,15 +125,18 @@ int main(){
             i++;
             if(currentTeam != results[i].team || i >= results.size()){
                 ans.push_back(Result(currentTeam, prob, tim, 0));
-                currentTeam = results[i].team;
+                solved.clear();
+                if (i < results.size())
+                    currentTeam = results[i].team;
                 prob = tim = 0;
             }
         }
         sort(ans.begin(), ans.end(), comp2);
         F(i, ans.size()){
-            outfile<<ans[i].team<<" "<<ans[i].problem<<" "<<ans[i].time<<endl;
+            cout<<ans[i].team<<" "<<ans[i].problem<<" "<<ans[i].time<<endl;
         }
-        outfile<<endl;
+        if(cases != 0)
+            cout<<endl;
     }
     //END
 
