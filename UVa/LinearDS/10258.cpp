@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdio>
+#include <stdio.h>
 #include <algorithm>
 #include <cstring>
 #include <string>
@@ -74,13 +75,8 @@ bool comp2(const Result& a, const Result& b){
 }
 
 int main(){
-    // FILE *in, *out;
-    // in = fopen("input.txt", "r");
-    // out = fopen("output.txt", "w+");
-    // ifstream infile;
-    // infile.open("input.txt");
-    // ofstream outfile;
-    // outfile.open("output.txt");
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
 
     //STARTS
     int cases;
@@ -128,7 +124,7 @@ int main(){
                 solved.clear();
                 if (i < results.size())
                     currentTeam = results[i].team;
-                prob = tim = 0;
+                penalty = prob = tim = 0;
             }
         }
         sort(ans.begin(), ans.end(), comp2);
