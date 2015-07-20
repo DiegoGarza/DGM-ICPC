@@ -16,8 +16,11 @@
 #include <set>
 #include <numeric>
 #include <ctime>
+#include <iterator>
+#include <limits>
+#include <fstream>
 
-#define F(i, a) for( int i = (0); i < (a); i++ )
+#define F(i, b, a) for( int i = (b); i < (a); i++ )
 #define Fs(i, sz) for( size_t i = 0; i < sz.size (); i++ )
 #define Fe(i, x) for(typeof (x.begin()) i = x.begin(); i != x.end (); i++)
 #define Set(a, s) memset(a, s, sizeof (a))
@@ -26,6 +29,7 @@
 
 using namespace std;
 
+typedef long long ll;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<string> vs;
@@ -35,15 +39,12 @@ typedef map<int,int> mpii;
 typedef set<int> seti;
 
 int main(){
-    // FILE *in, *out;
-    // in = fopen("input.txt", "r");
-    // out = fopen("output.txt", "w+");
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w+", stdout);
 
     //STARTS
 
     //END
 
-    // fclose(in);
-    // fclose(out);
     return 0;
 }

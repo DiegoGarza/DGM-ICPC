@@ -2,7 +2,19 @@
                                 Special I/O
 ################################################################################
 
-->
+->          READ SPACE SEPARATED CASES:
+
+int cases;
+string s;
+cin>>cases;
+cin.ignore();   //Ignore previous cin
+cin.ignore();   //Ignore first separating blank line
+while(cases--){
+    while(getline(cin, s)){
+        if(s == "") break;
+        //Do something
+    }
+}
 
 
 ################################################################################
@@ -11,6 +23,7 @@
 
 ->          CUSTOM COMPARATOR:
 
+//Compares strings in a differente way that strict lexicographical.
 struct icompare_char {
 bool operator()(char c1, char c2) {
         if(toupper(c1) == toupper(c2)){
@@ -33,6 +46,25 @@ struct compare {
             s2.begin(), s2.end(), icompare_char());
       }
 };
+
+->          TOKENIZE STRING TO VECTOR:
+
+stringstream ss(s);
+istream_iterator<string> it(ss);
+istream_iterator<string> end;
+vector<string> res(it, end);
+
+->          READ STRING AS STREAM:
+
+stringstream ss(s);
+int a,b,c, daux;
+char d;
+ss>>a>>b>>c>>d;
+
+->          STRING TO INT:
+
+istringstream ss(thestring);
+ss >> thevalue;
 
 ################################################################################
                                 Premutations
@@ -61,3 +93,32 @@ for (it = myset.begin(); it != myset.end(); ++it){
     int aux = *it;
     ans.push_back(aux);
 }
+
+->          GREATER FIRST ORDERED SET AND MULTISET:
+
+set<int, greater<int> > green, blue;
+multiset<int, greater<int> > green, blue;
+
+->          ERASE MULTISET LAST ELEMENT WITHOUT PREV:
+
+//Best not to use reverse iterators
+beg = urn.begin();
+end = urn.end();
+--end;
+
+################################################################################
+                            Priority Queue/Heap
+################################################################################
+
+->          CUSTOM COMPARATOR:
+
+class comp
+{
+public:
+    bool operator()(const pair<int,int>& n1, const pair<int,int>& n2) {
+        if(n1.second == n2.second) return n1.first > n2.first;
+        return n1.second > n2.second;
+    }
+};
+
+priority_queue<pair<int,int>,vector<pair<int,int> >, comp> pq;
