@@ -1,6 +1,7 @@
 class SegmentTree {
 
-private: vi, st, A;
+private:
+    vi st, A;
     int n;
     int left (int p) { return p << 1; }
     int right (int p ) { return (p << 1) + 1; }
