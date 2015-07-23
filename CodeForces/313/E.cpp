@@ -38,10 +38,27 @@ typedef vector<vi> vvi;
 typedef map<int,int> mpii;
 typedef set<int> seti;
 
-bool isPowerOfTwo(int n) {
-    if (n<1) return false;
-    n &= (n - 1);
-    return n == 0;
+int arr [100][100];
+
+void fillThat(int i, int j, int h, int w){
+    F(k,0,h){
+        F(l, 0, w){
+            cout<<arr[k][l]<<" ";
+        }
+        cout<<endl;
+    }
+    int val = 0;
+    if(i < h - 1 && arr[i+1][j] != -1) val++;
+    if(j < w - 1 && arr[i][j+1] != -1) val++;
+    if(i > 0 && j == 0) val += arr[i-1][j];
+    else if(j > 0 && i == 0) val += arr[i][j-1];
+    else if (i > 0 && j > 0){
+        int max = Max(arr[i-1][j], arr[i][j-1]);
+        val += max;
+    }
+    arr[i][j] = val;
+    if(i < h - 1 && arr[i+1][j] != -1) fillThat(i+1, j, h, w);
+    if(j < w - 1 && arr[i][j+1] != -1) fillThat(i, j+1, h, w);
 }
 
 int main(){
@@ -49,17 +66,17 @@ int main(){
     // freopen("output.txt", "w+", stdout);
 
     //STARTS
-    int n;
-    while(scanf("%d", &n) == 1){
-        int m = 0;
-        for(int i=0, j=24; i<32; i++, j++){
-            if((n & (1<<i)) != 0) {
-                m+=(1<<j);
-            }
-            if ((j + 1) % 8 == 0) j-=16;
-        }
-        printf("%d converts to %d\n", n, m);
+    int h, w, n;
+    memset (arr, 0, sizeof(arr));
+    scanf("%d%d%d", &h, &w, &n);
+    while (n--){
+        int x, y;
+        scanf("%d%d", &x, &y);
+        arr[x-1][y-1] = -1;
     }
+    cout<<"check"<<endl;
+    fillThat(0, 0, h, w);
+    printf("%d\n", arr[h-1][w-1]);
     //END
 
     return 0;

@@ -38,28 +38,42 @@ typedef vector<vi> vvi;
 typedef map<int,int> mpii;
 typedef set<int> seti;
 
-bool isPowerOfTwo(int n) {
-    if (n<1) return false;
-    n &= (n - 1);
-    return n == 0;
-}
-
 int main(){
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w+", stdout);
 
     //STARTS
-    int n;
-    while(scanf("%d", &n) == 1){
-        int m = 0;
-        for(int i=0, j=24; i<32; i++, j++){
-            if((n & (1<<i)) != 0) {
-                m+=(1<<j);
-            }
-            if ((j + 1) % 8 == 0) j-=16;
+    int size, chains;
+    scanf("%d%d", &size, &chains);
+    vvi mat (chains);
+    F(i,0,chains){
+        int chainsize;
+        scanf("%d", &chainsize);
+        vi aux (chainsize);
+        F(i, 0, chainsize){
+            scanf("%d", &aux[i]);
         }
-        printf("%d converts to %d\n", n, m);
+        mat[i] = aux;
     }
+    int i = 0;
+    while(mat[i][0] != 1) {
+        i++;
+    }
+    int conn = 0, curr = 2;
+    int j = 1;
+    while(j < mat[i].size() && curr == mat[i][j]){
+        conn++;
+        curr++;
+        j++;
+    }
+    int total = (mat[i].size()-1-conn);
+    for(int k=0; k<mat.size(); k++){
+        if(k!=i){
+            total += mat[k].size()-1;
+        }
+    }
+    total+=(size-1-conn);
+    printf("%d\n", total);
     //END
 
     return 0;

@@ -38,28 +38,36 @@ typedef vector<vi> vvi;
 typedef map<int,int> mpii;
 typedef set<int> seti;
 
-bool isPowerOfTwo(int n) {
-    if (n<1) return false;
-    n &= (n - 1);
-    return n == 0;
-}
-
 int main(){
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w+", stdout);
 
     //STARTS
-    int n;
-    while(scanf("%d", &n) == 1){
-        int m = 0;
-        for(int i=0, j=24; i<32; i++, j++){
-            if((n & (1<<i)) != 0) {
-                m+=(1<<j);
-            }
-            if ((j + 1) % 8 == 0) j-=16;
-        }
-        printf("%d converts to %d\n", n, m);
+    string a,b;
+    cin>>a>>b;
+    if(a.length() % 2 == 1 && a == b) {
+        printf("YES\n");
+        return 0;
     }
+    if(a.length() != b.length()) {
+        printf("NO\n");
+        return 0;
+    }
+    string a1, a2, b1, b2;
+    a1 = a.substr(0, a.length()/2);
+    a2 = a.substr(a.length()/2, a.length());
+    b1 = b.substr(0, b.length()/2);
+    b2 = b.substr(b.length()/2, b.length());
+    sort(a1.begin(), a1.end());
+    sort(a2.begin(), a2.end());
+    sort(b1.begin(), b1.end());
+    sort(b2.begin(), b2.end());
+    if((a1 == b1 && a2 == b2) || (a1 == b2 && a2 == b1)) {
+        printf("YES\n");
+        return 0;
+    }
+    printf("NO\n");
+    return 0;
     //END
 
     return 0;

@@ -38,28 +38,27 @@ typedef vector<vi> vvi;
 typedef map<int,int> mpii;
 typedef set<int> seti;
 
-bool isPowerOfTwo(int n) {
-    if (n<1) return false;
-    n &= (n - 1);
-    return n == 0;
-}
-
 int main(){
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w+", stdout);
 
     //STARTS
-    int n;
-    while(scanf("%d", &n) == 1){
-        int m = 0;
-        for(int i=0, j=24; i<32; i++, j++){
-            if((n & (1<<i)) != 0) {
-                m+=(1<<j);
-            }
-            if ((j + 1) % 8 == 0) j-=16;
-        }
-        printf("%d converts to %d\n", n, m);
+    int size;
+    scanf("%d", &size);
+    vi nums(size);
+    F(i, 0, size){
+        scanf("%d", &nums[i]);
     }
+    int moves;
+    (nums[0] != 0) ? moves = size - nums[0] : moves = 0;
+    int curr = 1, mod = -1, i;
+    for(i=1; i<size; i++, curr++){
+        (mod == 1) ? nums[i] = (nums[i] + moves) % size : nums[i] = (nums[i] + (size-moves)) % size;
+        if (curr != nums[i]) break;
+        mod *= -1;
+    }
+    if(i < size) printf("No\n");
+    else printf("Yes\n");
     //END
 
     return 0;

@@ -38,27 +38,38 @@ typedef vector<vi> vvi;
 typedef map<int,int> mpii;
 typedef set<int> seti;
 
-bool isPowerOfTwo(int n) {
-    if (n<1) return false;
-    n &= (n - 1);
-    return n == 0;
-}
-
 int main(){
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w+", stdout);
 
     //STARTS
-    int n;
-    while(scanf("%d", &n) == 1){
-        int m = 0;
-        for(int i=0, j=24; i<32; i++, j++){
-            if((n & (1<<i)) != 0) {
-                m+=(1<<j);
-            }
-            if ((j + 1) % 8 == 0) j-=16;
+    ll min, max;
+    ll i1, i2;
+    F(i, 0, 3){
+        cin>>i1>>i2;
+    }
+    max = Max(i1, i2);
+    min = Min(i1, i2);
+
+    if(max != min){
+        ll total = 0;
+        while (min != 0){
+            total += (min + (min-1))*3 + (max + (max -1 ))*3;
+            max--;
+            min--;
         }
-        printf("%d converts to %d\n", n, m);
+        ll diff = max - min;
+        ll mod = (ll) pow(4.0, (double) (diff-1));
+        cout<<total + mod<<endl;
+        return 0;
+    }
+    else {
+        ll size = max;
+        ll total = 0;
+        for(ll i = 1; i<=size; i++){
+            total += ((size + (size -1 ))*6);
+        }
+        cout<<total<<endl;
     }
     //END
 
