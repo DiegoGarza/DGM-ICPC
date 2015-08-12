@@ -40,7 +40,7 @@ int main(){
     // freopen("output.txt", "w+", stdout);
 
     //STARTS
-
+    printf("%d\n", INF);
     //END
 
     return 0;
