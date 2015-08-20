@@ -39,40 +39,31 @@ typedef map<int,int> mpii;
 typedef set<int> seti;
 
 int cases, size, xS, yS, xE, yE, steps, i, j, auxi, auxj, minPath;
-typedef pair<int, pair<pair<int, int>, int> > P;
-priority_queue< P, vector<P>, greater<P> > pq;
-
-int getDist(int i, int j){
-    return abs(i - yE) + abs(j - xE);
-}
+queue<pair<pair<int, int>, int> > q;
 
 void a_star(vvi& visited) {
+    bool found = false;
     int movesX [] = {-2, -1, 1, 2, -2, -1, 1, 2};
     int movesY [] = {1, 2, 2, 1, -1, -2, -2, -1};
-    double dist = getDist(xS, yS);
     visited[xS][yS] = 1;
-    pq.push(make_pair(dist, make_pair(make_pair(xS, yS), 1)));
-    while(!pq.empty()){
-        i = pq.top().second.first.first;
-        j = pq.top().second.first.second;
-        steps = pq.top().second.second;
-        visited[i][j] = steps;
-        dist = pq.top().first;
-        cout<<i<<" "<<j<<" "<<dist<<" "<<steps<<endl;
-        pq.pop();
-        if(!dist){
-            if(minPath > steps) minPath = steps;
-        }
-        steps++;
-        if(steps < minPath){
-            F(k, 0, 8){
-                auxi = i+movesY[k];
-                auxj = j+movesX[k];
-                if(auxi >= 0 && auxi < size && auxj >= 0 && auxj < size &&
-                    (!visited[auxi][auxj] || visited[auxi][auxj] < steps)) {
-                    dist = getDist(auxi, auxj);
-                    pq.push(make_pair(dist, make_pair(make_pair(auxi, auxj), steps)));
+    q.push(make_pair(make_pair(xS, yS), 0));
+    while(!q.empty() && !found){
+        i = q.front().first.first;
+        j = q.front().first.second;
+        steps = q.front().second;
+        q.pop();
+        F(k, 0, 8){
+            auxi = i + movesY[k];
+            auxj = j + movesX[k];
+            if(auxi >= 0 && auxi < size && auxj >= 0 && auxj < size &&
+                !visited[auxi][auxj]) {
+                if(auxi == xE && auxj == yE) {
+                    minPath = steps + 1;
+                    found = true;
+                    break;
                 }
+                visited[auxi][auxj] = 1;
+                q.push(make_pair(make_pair(auxi, auxj), steps + 1));
             }
         }
     }
@@ -85,8 +76,8 @@ int main(){
     //STARTS
     scanf("%d", &cases);
     while(cases--){
-        minPath = 1000000;
-        while(!pq.empty()) pq.pop();
+        minPath = 0;
+        while(!q.empty()) q.pop();
         scanf("%d", &size);
         vvi visited(size, vi(size, 0));
         scanf("%d%d%d%d", &xS, &yS, &xE, &yE);
