@@ -39,33 +39,37 @@ typedef map<int,int> mpii;
 typedef set<int> seti;
 
 int cases, size, xS, yS, xE, yE, steps, i, j, auxi, auxj, minPath;
-queue<pair<pair<int, int>, int> > q;
+queue<pair<int, int> > q;
 
-void a_star(vvi& visited) {
+void bfs(vvi visited) {
     bool found = false;
+    int counter = 1, lvl = 0;
     int movesX [] = {-2, -1, 1, 2, -2, -1, 1, 2};
     int movesY [] = {1, 2, 2, 1, -1, -2, -2, -1};
     visited[xS][yS] = 1;
-    q.push(make_pair(make_pair(xS, yS), 0));
+    q.push(make_pair(xS, yS));
     while(!q.empty() && !found){
-        i = q.front().first.first;
-        j = q.front().first.second;
-        steps = q.front().second;
-        q.pop();
-        F(k, 0, 8){
-            auxi = i + movesY[k];
-            auxj = j + movesX[k];
-            if(auxi >= 0 && auxi < size && auxj >= 0 && auxj < size &&
-                !visited[auxi][auxj]) {
-                if(auxi == xE && auxj == yE) {
-                    minPath = steps + 1;
-                    found = true;
-                    break;
+        while(counter--) {
+            i = q.front().first;
+            j = q.front().second;
+            q.pop();
+            F(k, 0, 8){
+                auxi = i + movesY[k];
+                auxj = j + movesX[k];
+                if(auxi >= 0 && auxi < size && auxj >= 0 && auxj < size &&
+                    !visited[auxi][auxj]) {
+                    if(auxi == xE && auxj == yE) {
+                        minPath = lvl + 1;
+                        found = true;
+                        break;
+                    }
+                    visited[auxi][auxj] = 1;
+                    q.push(make_pair(auxi, auxj));
                 }
-                visited[auxi][auxj] = 1;
-                q.push(make_pair(make_pair(auxi, auxj), steps + 1));
             }
         }
+        counter = q.size();
+        lvl++;
     }
 }
 
@@ -81,7 +85,7 @@ int main(){
         scanf("%d", &size);
         vvi visited(size, vi(size, 0));
         scanf("%d%d%d%d", &xS, &yS, &xE, &yE);
-        a_star(visited);
+        bfs(visited);
         printf("%d\n", minPath);
     }
     //END
