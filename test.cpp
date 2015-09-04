@@ -35,12 +35,36 @@ typedef vector<vi> vvi;
 typedef map<int,int> mpii;
 typedef set<int> seti;
 
+int HOB(int n){
+    int bits = 0;
+    while(n){
+        bits++;
+        n>>=1;
+    }
+    return bits;
+}
+
+int reverse(int x) {
+    int n = 0, prev = 0;
+    int mod = (x > 0) ? 1 : -1;
+    if(mod == -1) x &= ~(1 << 32);
+    cout<<x<<endl;
+    while(x){
+        n *= 10;
+        n += x % 10;
+        if(HOB(n) + 5 >= 32) return 0;
+        x /= 10;
+    }
+    n *= mod;
+    return n;
+}
+
 int main(){
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w+", stdout);
 
     //STARTS
-    printf("%d\n", INF);
+    cout<<reverse(-2147483648)<<endl;
     //END
 
     return 0;
