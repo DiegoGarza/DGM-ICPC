@@ -3,12 +3,9 @@
 
 using namespace std;
 
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-
 //With O(n) memory
-vvi rotateHelper(vvi mat){
-    vvi ans(mat.size(), vi(mat.size()));
+vector<vector<int> > rotateHelper(vector<vector<int> > mat){
+    vector<vector<int> > ans(mat.size(), vector<int>(mat.size()));
     for(int i=0, k = mat.size() - 1; i<mat.size(); i++, k--){
         for(int j=0; j<mat.size(); j++){
             ans[j][k] = mat[i][j];
@@ -17,7 +14,7 @@ vvi rotateHelper(vvi mat){
     return ans;
 }
 
-void rotateMatrix(vvi &mat, int k){
+void rotateMatrix(vector<vector<int> > &mat, int k){
     k = k % 4;
     if(k < 0) k += 4;
     for(int i = 0; i < k; i++){
